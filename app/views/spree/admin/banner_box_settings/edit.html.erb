@@ -1,10 +1,6 @@
-<%= render :partial => 'spree/admin/shared/configuration_menu' %>
-
 <% content_for :page_title do %>
   <%= t(:banner_box_settings) %>
 <% end %>
-
-<%= render :partial => 'spree/admin/shared/banner_box_sub_menu' %>
 
 <%= form_tag admin_banner_box_settings_path, :method => :put do %>
   
