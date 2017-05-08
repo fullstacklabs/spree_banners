@@ -1,0 +1,5 @@
+<% if can? :admin, Spree::BannerBox %>
+  <ul class="nav nav-sidebar">
+    <%= main_menu_tree :banner_boxes, icon: "icon-bookmark", sub_menu: "banner_box", url: "#sidebar-banner-box" %>
+  </ul>
+<% end %>
