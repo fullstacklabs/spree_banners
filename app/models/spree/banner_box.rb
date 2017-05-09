@@ -1,7 +1,7 @@
 module Spree
   class BannerBox < ActiveRecord::Base
-    acts_as_list :scope => :category
-    
+    acts_as_list scope: [:category]
+
     has_attached_file :attachment,
                 :url  => "/spree/banners/:id/:style_:basename.:extension",
                 :path => ":rails_root/public/spree/banners/:id/:style_:basename.:extension",
@@ -23,16 +23,12 @@ module Spree
       end
     }
 
-    # Load user defined paperclip settings
-    include Spree::Core::S3Support
-    supports_s3 :attachment
-    
-    Spree::BannerBox.attachment_definitions[:attachment][:styles] = ActiveSupport::JSON.decode(Spree::Config[:banner_styles])
-    Spree::BannerBox.attachment_definitions[:attachment][:path] = Spree::Config[:banner_path]
-    Spree::BannerBox.attachment_definitions[:attachment][:url] = Spree::Config[:banner_url]
-    Spree::BannerBox.attachment_definitions[:attachment][:default_url] = Spree::Config[:banner_default_url]
-    Spree::BannerBox.attachment_definitions[:attachment][:default_style] = Spree::Config[:banner_default_style]
-    
+    Spree::BannerBox.attachment_definitions[:attachment][:styles] = ActiveSupport::JSON.decode(SpreeBanner::Config[:banner_styles]).symbolize_keys!
+    Spree::BannerBox.attachment_definitions[:attachment][:path] = SpreeBanner::Config[:banner_path]
+    Spree::BannerBox.attachment_definitions[:attachment][:url] = SpreeBanner::Config[:banner_url]
+    Spree::BannerBox.attachment_definitions[:attachment][:default_url] = SpreeBanner::Config[:banner_default_url]
+    Spree::BannerBox.attachment_definitions[:attachment][:default_style] = SpreeBanner::Config[:banner_default_style]
+
     # for adding banner_boxes which are closely related to existing ones
     # define "duplicate_extra" for site-specific actions, eg for additional fields
     def duplicate
@@ -73,6 +69,5 @@ module Spree
     def self.categories_for_select
       unscoped.pluck(:category).uniq.sort
     end
-
   end
 end

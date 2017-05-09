@@ -6,13 +6,13 @@
   <div class="toolbar" data-hook="toolbar">
     <ul class="actions header-action-links inline-menu">
       <li id="new_banner_box_link">
-        <%= button_link_to t(:new_banner_box), new_object_url, { :remote => true, :icon => 'icon-plus', :id => 'admin_new_banner_box' } %>
+        <%= button_link_to t(:new_banner_box), new_object_url, { :icon => 'icon-plus', :id => 'admin_new_banner_box' } %>
       </li>
     </ul>
   </div>
 <% end %>
 
-<%= render :partial => 'spree/admin/shared/banner_box_sub_menu' %>
+<%= render :partial => 'spree/admin/shared/sub_menu/banner_box' %>
 
 <% content_for :table_filter_title do %>
   <%= Spree.t(:search) %>
@@ -71,6 +71,7 @@
     <th colspan="2"><%= t(:thumbnail) %></th>
     <th><%= t(:category) %></th>
     <th><%= t(:url) %></th>
+    <th><%= t(:enabled) %></th>
     <th data-hook="admin_banner_index_header_actions" class="actions"></th>
   </tr>
 </thead>
@@ -83,6 +84,7 @@
     <td class="align-center"><%= image_tag(banner_box.attachment(:mini)) %></td>
     <td class="align-center"><%= banner_box.category rescue '' %></td>
     <td class="align-center"><%= banner_box.url rescue '' %></td>
+    <td class="align-center"><%= banner_box.enabled rescue '' %></td>
     <td class="actions" data-hook="admin_banner_index_row_actions">
       <%= link_to_edit banner_box, :no_text => true, :class => 'edit' %>
       &nbsp;
