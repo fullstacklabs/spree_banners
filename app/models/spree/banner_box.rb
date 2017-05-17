@@ -3,8 +3,8 @@ module Spree
     acts_as_list scope: [:category]
 
     has_attached_file :attachment,
-                :url  => "/spree/banners/:id/:style_:basename.:extension",
-                :path => ":rails_root/public/spree/banners/:id/:style_:basename.:extension",
+                :url  => "/:class/:attachment/:id_partition/:style/:filename",
+                :path => ":rails_root/public/:class/:attachment/:id_partition/:style/:filename",
                 :styles => { :mini => "80x80#", :small => "120x120#" },
                 :convert_options => { :all => '-strip -auto-orient' }
     # save the w,h of the original image (from which others can be calculated)
