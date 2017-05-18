@@ -3,10 +3,16 @@ module Spree
     acts_as_list scope: [:category]
 
     has_attached_file :attachment,
-                :url  => "/:class/:attachment/:id_partition/:style/:filename",
-                :path => ":rails_root/public/:class/:attachment/:id_partition/:style/:filename",
-                :styles => { :mini => "80x80#", :small => "120x120#" },
-                :convert_options => { :all => '-strip -auto-orient' }
+      styles: {
+      mini: '48x48>',
+      small: '185x185>',
+      large: '400x400>',
+      xlarge: '600x600>'
+    },
+    default_style: :xlarge,
+    convert_options: {
+      all: '-strip -auto-orient -colorspace sRGB'
+    }
     # save the w,h of the original image (from which others can be calculated)
     # we need to look at the write-queue for images which have not been saved yet
     after_post_process :find_dimensions
