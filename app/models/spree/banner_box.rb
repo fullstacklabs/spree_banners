@@ -7,7 +7,7 @@ module Spree
       mini: '48x48>',
       small: '185x185>',
       large: '400x400>',
-      xlarge: '600x600>'
+      xlarge: '100%x100%'
     },
     default_style: :xlarge,
     convert_options: {
@@ -28,12 +28,6 @@ module Spree
         where(:enabled => true).where(:category => categories)
       end
     }
-
-    Spree::BannerBox.attachment_definitions[:attachment][:styles] = ActiveSupport::JSON.decode(SpreeBanner::Config[:banner_styles]).symbolize_keys!
-    Spree::BannerBox.attachment_definitions[:attachment][:path] = SpreeBanner::Config[:banner_path]
-    Spree::BannerBox.attachment_definitions[:attachment][:url] = SpreeBanner::Config[:banner_url]
-    Spree::BannerBox.attachment_definitions[:attachment][:default_url] = SpreeBanner::Config[:banner_default_url]
-    Spree::BannerBox.attachment_definitions[:attachment][:default_style] = SpreeBanner::Config[:banner_default_style]
 
     # for adding banner_boxes which are closely related to existing ones
     # define "duplicate_extra" for site-specific actions, eg for additional fields
@@ -65,11 +59,6 @@ module Spree
       ActiveSupport::JSON.decode(SpreeBanner::Config[:banner_styles]).each do |key,value|
         extended_hash[:"#{key}"] = value
       end
-      Spree::BannerBox.attachment_definitions[:attachment][:styles] = extended_hash
-      Spree::BannerBox.attachment_definitions[:attachment][:path] = SpreeBanner::Config[:banner_path]
-      Spree::BannerBox.attachment_definitions[:attachment][:url] = SpreeBanner::Config[:banner_url]
-      Spree::BannerBox.attachment_definitions[:attachment][:default_url] = SpreeBanner::Config[:banner_default_url]
-      Spree::BannerBox.attachment_definitions[:attachment][:default_style] = SpreeBanner::Config[:banner_default_style]
     end
 
     def self.categories_for_select
